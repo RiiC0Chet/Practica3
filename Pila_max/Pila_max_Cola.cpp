@@ -61,12 +61,14 @@
 		return pila.frente();
 	}
 
-	void Pila_max_Cola::poner(const elemento & elem){
+	void Pila_max_Cola::poner(const elemento & elem)
+	{
 
 		if (num == 0)
 			pila.poner(elem);
 			
-		else {                      
+		else 
+		{                      
 
 			Cola<elemento> pila_aux;
 			pila_aux.poner(elem);
@@ -77,9 +79,11 @@
 					pila_aux.poner(pila.frente());
 					pila.quitar();
 			}
+			pila = pila_aux;
 			
 		}
 
+		
 
 		num++;    
 	}
