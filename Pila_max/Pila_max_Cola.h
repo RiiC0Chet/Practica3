@@ -20,38 +20,92 @@ class Pila_max_Cola
 
 	public:
 
+		/**
+			@brief Cronstructor por defecto
+		*/
 		Pila_max_Cola(): num(0)
 		{}
 
+		/**
+			@brief Cronstructor de copia
+			@param orig, otra Pila_max_cola, la cual copiaremos en el objeto implicito
+		*/
 		Pila_max_Cola(const Pila_max_Cola<T> & orig);
 
+		/**
+			@brief destructor por defecto de la clase
+		*/
 		virtual ~Pila_max_Cola();
 
-		Pila_max_Cola & operator= (const Pila_max_Cola<T> & orig);
+		/**
+			@brief operator de igualacion para la clase Pila_max_Cola
+			@param orig, otra Pila_max_cola, la cual copiaremos en el objeto implicito
+			@return Pila_max_Cola copiada
+		*/
+		void operator= (const Pila_max_Cola<T> & orig);
 
-		const Cola<T> & GetCola() const;
-		
-		Cola<T> & GetCola();
 
+		/**
+			@brief devuelve el numero de elementos que tiene la pila
+			@return const int
+		*/
 		const int GetNum() const;
 
+		/**
+			@brief devuelve el numero de elementos que tiene la pila
+			@return  int
+		*/
 		int GetNum();
-
+		/**
+			@brief devuelve true si la pila esta vacia y false si no
+			@return bool
+		*/
 		bool Vacia();
 
-		const T & Tope() const ;
 
-		T & Tope();
+		/**
+			@brief devuelve el elemento del tope de la pila por referencia 
+			@return const T
+		*/
+		const T & Tope_ele() const ;
 
+		/**
+			@brief devuelve el elemento del tope de la pila por referencia
+			@return  T
+		*/
+		T &  Tope_ele();
+
+		/**
+			@brief devuelve el maximo del tope de la pila por referencia
+			@return const T
+		*/
+		const T& Tope_max() const;
+
+		/**
+			@brief devuelve el maximo del tope de la pila por referencia
+			@return  T
+		*/
+		T& Tope_max();
+
+		/**
+			@brief funcion para insertar un nuevo elemento T ala pila
+			@param elem, elemento T a introducir en la pila
+		*/
 		void poner(const T & elem);
 
+		/**
+			@brief quita el primer elemeno de la pila
+		*/
 		void quitar();
+
 };
 
+		
+/*********************************Pila_max_Cola.cpp***************************************/
 	template <class T>
 	Pila_max_Cola<T>::Pila_max_Cola(const Pila_max_Cola<T> & orig){
 	
-		pila = orig.GetCola();
+		pila = orig.pila;
 		num = orig.GetNum();
 	}
 
@@ -62,24 +116,11 @@ class Pila_max_Cola
 	}
 
 	template <class T>
-	Pila_max_Cola<T> & Pila_max_Cola<T>::operator= (const Pila_max_Cola<T>& orig) {
+	void Pila_max_Cola<T>::operator= (const Pila_max_Cola<T>& orig) {
 
-		pila = orig.GetCola();
+		pila = orig.pila;
 		num = orig.GetNum();
 
-		return *this;
-	}
-	
-
-	template <class T>
-	const Cola<T> & Pila_max_Cola<T>::GetCola() const {
-		return pila;
-	}
-
-	template <class T>
-	Cola<T> & Pila_max_Cola<T>::GetCola()
-	{
-		return pila;
 	}
 
 	template <class T>
@@ -111,15 +152,27 @@ class Pila_max_Cola
 	}
 
 	template <class T>
-	const T & Pila_max_Cola<T>::Tope() const {
+	const T & Pila_max_Cola<T>::Tope_ele() const {
 		
-		return pila.frente();
+		return pila.frente().ele;
+	}
+	
+	template <class T>
+	T & Pila_max_Cola<T>::Tope_ele(){
+		
+		return pila.frente().ele;
 	}
 
 	template <class T>
-	T & Pila_max_Cola<T>::Tope(){
-		
-		return pila.frente();
+	const T& Pila_max_Cola<T>::Tope_max() const {
+
+		return pila.frente().maximo;
+	}
+
+	template <class T>
+	T& Pila_max_Cola<T>::Tope_max() {
+
+		return pila.frente().maximo;
 	}
 
 	template <class T>
@@ -127,16 +180,24 @@ class Pila_max_Cola
 	{
 
 		elemento aux;
-		aux->ele = elem;
+		aux.ele = elem;
 		
-		if (elem > pila.frente()->maximo)
-			aux->maximo = aux->ele;
-		else {
-			aux->maximo = pila.frente()->maximo;
+		if (Vacia()){
+
+			aux.maximo = aux.ele;
 		}
 
+		else{
+			if (elem > pila.frente().maximo)
+				aux.maximo = aux.ele;
+			else {
+				aux.maximo = pila.frente().maximo;
+			}
+		
+		}
+		
 		if (num == 0)
-			pila.poner(aux);
+				pila.poner(aux);
 			
 		else 
 		{                      
@@ -165,3 +226,5 @@ class Pila_max_Cola
 	}
 
 	#endif
+
+	

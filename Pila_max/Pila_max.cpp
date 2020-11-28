@@ -1,19 +1,48 @@
-// Pila_max.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
-//
-
 #include <iostream>
+#include "Pila_max_Cola.h"
+#include "Pila_max_VD.h"
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+int main() {
+
+    cout << "Hello cuack \n";
+    Pila_max_Cola<int> pila_c;
+    Pila_max_Cola<int> pila_c_aux;
+
+    Pila_max_VD<int> pila_vd;
+    Pila_max_VD<int> pila_vd_aux;
+
+    pila_c.poner(4);
+    pila_c.poner(5);
+    pila_c.poner(6);
+    pila_c.poner(5);
+
+    pila_c_aux = pila_c;
+
+    for (int i = 0; i < pila_c.GetNum(); i++)
+    {
+        cout << pila_c_aux.Tope_ele() << " " << pila_c_aux.Tope_max() << endl;
+        pila_c_aux.quitar();
+    }
+
+    cout << "/*******************************************************************/ \n";
+    
+
+    pila_vd.poner(4);
+    pila_vd.poner(5);
+    pila_vd.poner(4);
+    pila_vd.poner(6);
+
+    pila_vd_aux = pila_vd;
+
+    for (int i = 0; i < pila_vd.size(); i++)
+    {
+        cout << pila_vd_aux.Tope_ele() << " " << pila_vd_aux.Tope_max()<<endl;
+        pila_vd_aux.quitar();
+    }
+
+    return 0;
+
 }
 
-// Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
-// Depurar programa: F5 o menú Depurar > Iniciar depuración
-
-// Sugerencias para primeros pasos: 1. Use la ventana del Explorador de soluciones para agregar y administrar archivos
-//   2. Use la ventana de Team Explorer para conectar con el control de código fuente
-//   3. Use la ventana de salida para ver la salida de compilación y otros mensajes
-//   4. Use la ventana Lista de errores para ver los errores
-//   5. Vaya a Proyecto > Agregar nuevo elemento para crear nuevos archivos de código, o a Proyecto > Agregar elemento existente para agregar archivos de código existentes al proyecto
-//   6. En el futuro, para volver a abrir este proyecto, vaya a Archivo > Abrir > Proyecto y seleccione el archivo .sln
